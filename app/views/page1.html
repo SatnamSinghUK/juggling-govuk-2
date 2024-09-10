@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Home" %}
+
+{% block beforeContent %}
+    <a href="#" class="govuk-back-link" onClick="window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% from 'govuk/components/radios/macro.njk' import govukRadios %}
+
+            <h1 class="govuk-heading-l">How do you want to return your juggling equipment?</h1>
+
+            <form action="/page1" method="post" novalidate>
+
+                {{ govukRadios({
+                    name: 'returnMethod',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            classes: 'govuk-fieldset__legend--m'
+                        }
+                    },
+                    items: [
+                        { 
+                            value: 'by courier', 
+                            text: 'By courier', 
+                            checked: data.returnMethod == 'by courier' 
+                        },
+                        { 
+                            value: 'in person', 
+                            text: 'In person', 
+                            checked: data.returnMethod == 'in person' 
+                        }
+                    ]
+                }) }}
+
+                <button class="govuk-button" type="submit">Continue</button>
+            </form>
+
+            {% include "includes/details-not-finished.html" %}
+
+        </div>
+    </div>
+    {% endblock %}

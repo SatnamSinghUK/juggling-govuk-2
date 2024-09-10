@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Home" %}
+
+{% block beforeContent %}
+    <a href="#" class="govuk-back-link" onClick="window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% from 'govuk/components/radios/macro.njk' import govukRadios %}
+
+            <h1 class="govuk-heading-l">Select your return location</h1>
+
+            <form action="/page3" method="post" novalidate>
+                {{ govukRadios({
+                name: 'office',
+                fieldset: {
+                legend: {
+                    text: '',
+                    classes: 'govuk-fieldset__legend--m'
+                }
+                },
+                items: [
+                { 
+                    value: 'Northern office', 
+                    text: 'Northern office',
+                    hint: {
+                        text: "1 North Street, NN1 001"
+                    },
+                    checked: data.inPersonOffice == 'Northern office' 
+                },
+                { 
+                    value: 'Southern office', 
+                    text: 'Southern office',
+                    hint: {
+                        text: "1 South Street, SS1 001"
+                    },
+                    checked: data.inPersonOffice == 'Southern office' 
+                }
+                ]
+            }) }}
+
+                <button class="govuk-button" type="submit">Continue</button>
+            </form>
+            
+            {% include "includes/details-not-finished.html" %}
+
+        </div>
+    </div>
+{% endblock %}

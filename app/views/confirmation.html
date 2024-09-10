@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+    Your juggling equipment return summary - Return equipment - {{ serviceName }} - GOV.UK
+{% endblock %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ govukPanel({
+                titleText: "Your juggling equipment return request has been received",
+                html: "Your reference number<br><strong>JUGGLING2123F</strong> "
+            }) }}
+
+            <p class="govuk-body">We have sent you a confirmation email.</p>
+
+            <h2 class="govuk-heading-m">What happens next</h2>
+
+            <p class="govuk-body">
+                We’ve sent your return request to the Juggling Office.
+            </p>
+            <p class="govuk-body">
+                They will contact you either to confirm your request, or to ask for more information.
+            </p>
+
+            {{ govukButton({
+                text: "Start new return request",
+                href: "/reset",
+                isStartButton: false
+            }) }}
+        </div>
+    </div>
+
+{% endblock %}

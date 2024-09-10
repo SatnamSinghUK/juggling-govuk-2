@@ -1,20 +1,27 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Home" %}
+{% block pageTitle %}
+    Get started - Return equipment - {{ serviceName }} - GOV.UK
+{% endblock %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Return your juggling equipment</h1>
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+            <p class="govuk-body-l">Use this service to return your government issued juggling equipment.</p>
 
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
-    </h1>
+            {{ govukButton({
+                text: "Start now",
+                href: "page1.html",
+                isStartButton: true
+            }) }}
 
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
-  </div>
-</div>
+            {% include "includes/details-not-finished.html" %}
 
+        </div>
+    </div>
 {% endblock %}

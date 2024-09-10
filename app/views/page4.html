@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Home" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from 'govuk/components/summary-list/macro.njk' import govukSummaryList %}
+
+{% block beforeContent %}
+    <a href="#" class="govuk-back-link" onClick="window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">Check your answers</h1>
+
+            {% set rows = [] %}
+
+            {% if data.returnMethod === 'by courier' %}
+                {% set courierAddress = data.courierAddress.addressLine1 ~ ', ' ~ data.courierAddress.addressLine2 ~ ', ' ~ data.courierAddress.townCity ~ ', ' ~ data.courierAddress.postcode %}
+
+                {% set rows = [
+                    {
+                        key: {
+                            text: 'How to return?'
+                        },
+                        value: {
+                            text: 'By courier'
+                        },
+                        actions: {
+                            items: [
+                                {
+                                    href: '/page1',
+                                    text: 'Change',
+                                    visuallyHiddenText: ' how to return'
+                                }
+                            ]
+                        }
+                    }, {
+                        key: {
+                            text: 'Courier Address'
+                        },
+                        value: {
+                            text: courierAddress
+                        },
+                        actions: {
+                            items: [
+                                {
+                                    href: '/page2',
+                                    text: 'Change',
+                                    visuallyHiddenText: ' courier address'
+                                }
+                            ]
+                        }
+                    }
+                ] %}
+            {% endif %}
+
+            {% if data.returnMethod === 'in person' %}
+                {% set rows = [
+                    {
+                    key: { text: 'How to return?' },
+                    value: { text: 'In person' },
+                    actions: {
+                        items: [{
+                        href: '/page1',
+                        text: 'Change',
+                        visuallyHiddenText: ' how to return'
+                        }]
+                    }
+                    },
+                    {
+                    key: { text: 'In Person Office' },
+                    value: { text: data.inPersonOffice },
+                    actions: {
+                        items: [{
+                        href: '/page3',
+                        text: 'Change',
+                        visuallyHiddenText: ' in-person office selection'
+                        }]
+                    }
+                    }
+                ]
+            %}
+            {% endif %}
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            {{ govukButton({
+                text: "Submit answers",
+                href: "confirmation.html",
+                isStartButton: false
+            }) }}
+
+            {% include "includes/details-not-finished.html" %}
+
+        </div>
+    </div>
+{% endblock %}
